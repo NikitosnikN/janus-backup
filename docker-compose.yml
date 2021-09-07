@@ -1,0 +1,17 @@
+# docker-compose config for local development
+version: '3'
+services:
+  api:
+    container_name: janus-api
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --loop 'uvloop' --lifespan on --reload --proxy-headers
+    build:
+      context: ./
+      dockerfile: deployment/dockerfiles/Dockerfile
+    volumes:
+      - ./db.sqlite3:./db.sqlite3
+    expose:
+      - 8000
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env

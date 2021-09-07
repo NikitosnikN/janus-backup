@@ -1,0 +1,56 @@
+[tool.poetry]
+name = "janus-backup"
+version = "0.1.0"
+description = ""
+authors = ["Nikita Yugov <nikitosnikn@yandex.ru>", "Aleksander Lavrov <egnod@ya.ru>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+fastapi = "^0.63.0"
+ujson = "^4.0.2"
+uvicorn = "^0.13.3"
+uvloop = "^0.15.0"
+websockets = "^8.1"
+PyJWT = "^2.0.1"
+sentry-sdk = "^0.20.1"
+schedule = "^1.0.0"
+aioboto3 = "^8.3.0"
+sshtunnel = "^0.4.0"
+cryptography = "^3.4.7"
+SQLAlchemy = "^1.4.23"
+alembic = "^1.7.1"
+
+[tool.poetry.dev-dependencies]
+pre-commit = "^2.10.1"
+python-dotenv = "^0.16.0"
+
+[tool.poetry.scripts]
+migrate = "alembic revision --autogenerate -m 'message'"
+
+[tool.black]
+line-length = 120
+target-version = ['py38']
+include = '\.pyi?$'
+exclude = '''
+
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+  | foo.py           # also separately exclude a file named foo.py in
+                     # the root of the project
+)
+'''
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

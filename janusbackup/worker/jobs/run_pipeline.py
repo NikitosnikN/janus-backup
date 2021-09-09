@@ -2,16 +2,14 @@ import asyncio
 
 from schedule import Scheduler
 
-from janusbackup.logger import logger
+from janusbackup.core import BackupPipeline
 from janusbackup.worker.jobs import BaseJob
 
 
-class TestJob(BaseJob):
-    is_active = False
-
+class RunPipelineJob(BaseJob):
     @staticmethod
-    async def _job(*args, **kwargs):
-        logger.debug("Hello world for TestJob")
+    async def _job(*args, **kwargs) -> None:
+        await BackupPipeline(config=kwargs.get("config")).start_pipeline()
 
     @classmethod
     def set_schedule_job(cls, scheduler: Scheduler, loop: asyncio.BaseEventLoop, *args, **kwargs):

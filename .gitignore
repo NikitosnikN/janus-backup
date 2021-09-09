@@ -1,5 +1,8 @@
 local_test.py
 
+.config/config.*
+.config/projects.*
+
 ### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/

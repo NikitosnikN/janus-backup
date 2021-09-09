@@ -220,6 +220,23 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "dynaconf"
+version = "3.1.5"
+description = "The dynamic configurator for your Python Project"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+all = ["redis", "ruamel.yaml", "configobj", "hvac"]
+configobj = ["configobj"]
+ini = ["configobj"]
+redis = ["redis"]
+toml = ["toml"]
+vault = ["hvac"]
+yaml = ["ruamel.yaml"]
+
+[[package]]
 name = "fastapi"
 version = "0.63.0"
 description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
@@ -702,7 +719,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "b444b6440d849d49ffdf6aa8de08523032288467e869b4e69216d3b031f1dd2a"
+content-hash = "11f46faa2ae2aa9a9cff24d4935a88cf695a32c5c68fa3ec95d4d402fdea64a6"
 
 [metadata.files]
 aioboto3 = [
@@ -873,6 +890,10 @@ cryptography = [
 distlib = [
     {file = "distlib-0.3.1-py2.py3-none-any.whl", hash = "sha256:8c09de2c67b3e7deef7184574fc060ab8a793e7adbb183d942c389c8b13c52fb"},
     {file = "distlib-0.3.1.zip", hash = "sha256:edf6116872c863e1aa9d5bb7cb5e05a022c519a4594dc703843343a9ddd9bff1"},
+]
+dynaconf = [
+    {file = "dynaconf-3.1.5-py2.py3-none-any.whl", hash = "sha256:98f0e5d861e945c1b06ed33844b9341e6412bc121c1a9ea88668df7891d8f308"},
+    {file = "dynaconf-3.1.5.tar.gz", hash = "sha256:40979cc454d8533fada490dc0945a1dbf5ea96f95dc9113f8a3b3053670fd569"},
 ]
 fastapi = [
     {file = "fastapi-0.63.0-py3-none-any.whl", hash = "sha256:98d8ea9591d8512fdadf255d2a8fa56515cdd8624dca4af369da73727409508e"},

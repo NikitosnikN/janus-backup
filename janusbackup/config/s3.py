@@ -1,8 +1,0 @@
-from os import getenv
-
-S3_ENDPOINT_URL = getenv("S3_ENDPOINT_URL", "")
-S3_ACCESS_KEY = getenv("S3_ACCESS_KEY", "")
-S3_SECRET_KEY = getenv("S3_SECRET_KEY", "")
-
-DEFAULT_EXPIRATION_STORAGE_URL = 1200
-DEFAULT_BUCKET = "backups"

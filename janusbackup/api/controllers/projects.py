@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Body, HTTPException, Path, Query, Response, status
 
-from janusbackup.core.exceptions import ExtendedHTTPException
+from janusbackup.api.exceptions import ExtendedHTTPException
 from janusbackup.core.mechanics import BackupPipeline
 from janusbackup.database.models import ProjectModel
 from janusbackup.schemas import ProjectCreateSchema, ProjectSchema, ProjectSchemaPaginated, ProjectUpdateSchema

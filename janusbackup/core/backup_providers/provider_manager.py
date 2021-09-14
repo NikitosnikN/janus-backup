@@ -1,6 +1,6 @@
 from typing import Optional, Type
 
-from janusbackup.core.mechanics.backup_providers import BaseBackupProvider
+from janusbackup.core.backup_providers import BaseBackupProvider
 
 
 class BackupProviderManager:

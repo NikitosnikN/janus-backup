@@ -4,7 +4,7 @@ from pydantic import ValidationError
 from starlette import status
 from starlette.requests import Request
 
-from janusbackup.core.exceptions import ExtendedHTTPException
+from janusbackup.api.exceptions import ExtendedHTTPException
 
 __all__ = ["exception_handlers"]
 

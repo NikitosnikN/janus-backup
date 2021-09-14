@@ -1,12 +1,13 @@
 import aioboto3
 
-from janusbackup.config import DEFAULT_BUCKET, S3_ACCESS_KEY, S3_ENDPOINT_URL, S3_SECRET_KEY
+from janusbackup.config import CONFIG_FACTORY, Config
 
 __all__ = ["S3Wrapper"]
 
 
 class S3Wrapper:
-    def __init__(self):
+    def __init__(self, config: Config = None):
+        self.config = config or CONFIG_FACTORY()
         self.s3 = None
         self.bucket = None
 
@@ -14,13 +15,13 @@ class S3Wrapper:
         if not self.s3:
             self.s3 = await aioboto3.resource(
                 "s3",
-                endpoint_url=S3_ENDPOINT_URL,
-                aws_access_key_id=S3_ACCESS_KEY,
-                aws_secret_access_key=S3_SECRET_KEY,
+                endpoint_url=self.config.S3_URL,
+                aws_access_key_id=self.config.S3_ACCESS_KEY,
+                aws_secret_access_key=self.config.S3_SECRET_KEY,
             ).__aenter__()
 
         if not self.bucket:
-            self.bucket = await self.s3.Bucket(DEFAULT_BUCKET)
+            self.bucket = await self.s3.Bucket(self.config.S3_BUCKET)
 
         return self
 

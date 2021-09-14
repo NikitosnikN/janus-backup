@@ -1,3 +1,4 @@
 from .base import BaseJob
-from .clear_logs_db import clear_logs_in_db_wrapper
+from .clear_old_backups import ClearOldBackupsJob
+from .run_pipeline import RunPipelineJob
 from .test_job import TestJob

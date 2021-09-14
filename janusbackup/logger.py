@@ -1,17 +1,35 @@
-import logging
+import logging.config
 import sys
 
-from janusbackup.config import IS_LOCAL
+__all__ = ["logger"]
 
-__all__ = ["logger", "tg_logger"]
+LOG_LEVELS = {
+    "critical": logging.CRITICAL,
+    "error": logging.ERROR,
+    "warning": logging.WARNING,
+    "info": logging.INFO,
+    "debug": logging.DEBUG,
+}
 
-logger = logging.getLogger("janus-backups")
+LOGGING_CONFIG = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {"default": {"class": "logging.Formatter", "format": "%(asctime)s %(levelname)s %(message)s"}},
+    "handlers": {
+        "default": {
+            "class": "logging.StreamHandler",
+            "formatter": "default",
+            "stream": "sys.stdout",
+            "level": "DEBUG",
+        },
+    },
+    "loggers": {
+        "janusbackup": {"handlers": ["default"], "level": "DEBUG"},
+        "janusbackup.error": {"handlers": ["default"], "level": "INFO"},
+        "janusbackup.notify": {"handlers": ["default"], "level": "INFO"},
+    },
+}
 
+logger = logging.getLogger("janusbackups")
+logger.setLevel("DEBUG")
 logger.addHandler(logging.StreamHandler(sys.stdout))
-
-tg_logger = logging.getLogger("janus-backup-tg")
-
-if IS_LOCAL:
-    logger.setLevel(logging.DEBUG)
-else:
-    logger.setLevel(logging.INFO)

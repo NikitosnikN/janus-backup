@@ -1,17 +1,23 @@
+import os
 from abc import ABC, abstractmethod
 from datetime import datetime
 from os import path
 from typing import Optional, Union
 
-from janusbackup.database.models import ProjectModel
-from janusbackup.schemas import BaseModel, ProjectSchema
+from janusbackup.config import CONFIG_FACTORY, Config
+from janusbackup.schemas import BaseModel, DBType, ProjectSchema
 
 
 class BaseBackupProvider(ABC):
+    db_type: DBType
     params_schema: Optional[BaseModel] = None
-    _backup_path: str
-    _generated_filename: Optional[str]
-    project_title: str = ""
+
+    def __init__(self, project: ProjectSchema, config: Config = None, **kwargs):
+        self.project = project
+        self.config = config or CONFIG_FACTORY
+
+        self._backup_path = "./.tmp/"
+        self._generated_filename = None
 
     @property
     @abstractmethod
@@ -20,19 +26,11 @@ class BaseBackupProvider(ABC):
 
     @classmethod
     @abstractmethod
-    def start_backup(cls, **kwargs) -> "BaseBackupProvider":
+    async def start_backup(cls, **kwargs) -> "BaseBackupProvider":
         pass
 
     @abstractmethod
     async def _load_provider_params(self) -> dict:
-        pass
-
-    @classmethod
-    def from_project(cls, project: ProjectModel, **kwargs):
-        pass
-
-    @classmethod
-    def from_schema(cls, project: ProjectSchema, **kwargs):
         pass
 
     @property
@@ -55,3 +53,7 @@ class BaseBackupProvider(ABC):
 
     def validate_backup_exists(self) -> bool:
         return path.exists(self.backup_filepath)
+
+    def remove_backup(self) -> None:
+        os.remove(self.backup_filepath)
+        return None

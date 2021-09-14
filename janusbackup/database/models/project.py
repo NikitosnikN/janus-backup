@@ -1,23 +1,11 @@
-from enum import Enum
-
 from sqlalchemy import JSON, Boolean, Column, DateTime
 from sqlalchemy import Enum as EnumField
 from sqlalchemy import Integer, String
 from sqlalchemy.sql import func
 
+from janusbackup.schemas import ConnectionType, DBType
+
 from .base import BaseModel
-
-
-class DBType(str, Enum):
-    MONGODB = "mongodb"  # janusbackup.core.mechanics.backup_providers.mongo_provider.MongoBackupProvider
-    POSTGRES = "postgre"
-    MYSQL = "mysql"  # TODO
-    MSSQL = "mssql"
-
-
-class ConnectionType(int, Enum):
-    DIRECT = 0
-    SSH_TUNNEL = 1
 
 
 class ProjectModel(BaseModel):

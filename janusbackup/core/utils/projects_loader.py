@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 from typing import List, Union
 
+import toml
 import yaml
 from pydantic import ValidationError
 
@@ -18,14 +19,18 @@ class ProjectsLoader:
         path = Path(self.config.PROJECTS_SETTINGS_FILEPATH)
         extension = path.suffix
 
-        if extension == ".json":
-            data = json.load(path.open("r"))["projects"]
+        with path.open("r") as f:
+            if extension == ".json":
+                data = json.load(f)["projects"]
 
-        elif extension in (".yml", ".yaml"):
-            data = yaml.load(path.open("r"))["projects"]
+            elif extension in (".yml", ".yaml"):
+                data = yaml.load(f)["projects"]
 
-        else:
-            raise NotImplementedError(f".{extension} if not supported yet")
+            elif extension == ".toml":
+                data = toml.load(f)["projects"]
+
+            else:
+                raise NotImplementedError(f".{extension} if not supported yet")
 
         return data
 

@@ -17,8 +17,8 @@ __all__ = [
 class DBType(str, Enum):
     MONGODB = "mongodb"
     POSTGRES = "postgresql"
-    MYSQL = "mysql"
-    MSSQL = "mssql"
+    # MYSQL = "mysql"
+    # MSSQL = "mssql"
 
 
 class ConnectionType(str, Enum):
